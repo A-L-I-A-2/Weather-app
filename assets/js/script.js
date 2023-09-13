@@ -65,10 +65,10 @@ function getCurrentLocation(latitude, longitude) {
     .catch((error) => {
     console.error(error);
     });
-    }
+}
     
-    // convert data to readable format
-    function dataConversion(data) { // indsat 'data' som parameter, så vi ved hvad der passeres videre til denne funktion
+// convert data to readable format
+function dataConversion(data) { // indsat 'data' som parameter, så vi ved hvad der passeres videre til denne funktion
     const rawData = data;
     
     // kalder funktioner til at håndtere data (udtrække fra api'en)
@@ -78,125 +78,94 @@ function getCurrentLocation(latitude, longitude) {
     makeSunData(rawData);
     makeDayData(rawData);
     makeWeekData(rawData);
-    }
+}
     
-    // extract and sort info to array tempData
-    function makeTempData(rawData) {
+// extract and sort info to array tempData
+function makeTempData(rawData) {
     const temp = rawData.hourly.temperature_2m;
     const humidity = rawData.hourly.relativehumidity_2m;
     
-    //loop through the temp and humidity arrays and push them into tempData
-    for (let i = 0; i < temp.length; i++) {
-        const temperature = temp[i];
-        const relativeHumidity = humidity[i];
-    
-        // Create an object to store temperature and humidity data
-        const dataPoint = {
-            temperature: temperature,
-            humidity: relativeHumidity
-        };
-    
-        // Push the dataPoint object into the tempData array
-        tempData.push(dataPoint);
-    }
+    // Use the map method to create an array of objects
+    const tempDatas = temp.map((temperature, i) => ({
+        temperature,
+        humidity: humidity[i],
+    }));
+
+    tempData.push(tempDatas);
     console.log('Temperatur og Luftfugtighed', tempData);
-    }
+}
     
-    function makeWeatherTypeData(rawData) {
+function makeWeatherTypeData(rawData) {
     const weatherCode = rawData.hourly.weathercode;
     
-    for (let i = 0; i < weatherCode.length; i++) {
-        const weatherType = weatherCode[i];
-    
-        const dataPoint = {
-            weatherType: weatherType
-        };
-    
-        weatherTypeData.push(dataPoint);
-    }
-    console.log('Vejrtype',weatherTypeData);
-    }
+    const weatherTypeDatas = weatherCode.map((weathercode) => ({
+        weathercode,
+    }));
+
+    weatherTypeData.push(weatherTypeDatas);
+    console.log('Vejrtype', weatherTypeData);
+}
     
     function makeWindSpeedData(rawData) {
     const windSpeed = rawData.hourly.windspeed_10m;
     const windDirection = rawData.hourly.winddirection_10m;
+    /* const tempDatas = temp.map((temperature, i) => ({
+        temperature,
+        humidity: humidity[i],
+    })); */
+    const windSpeedDatas = windSpeed.map((windSpeed, i) => ({
+        windSpeed,
+        windDirection: windDirection[i],
+    }));
     
-    for (let i = 0; i < windSpeed.length; i++) {
-        const windSpeeds = windSpeed[i];
-        const windDirections = windDirection[i];
-    
-        const dataPoint = {
-            windSpeed: windSpeeds,
-            windDirection: windDirections
-        };
-    
-        windData.push(dataPoint);
-    }
+    windData.push(windSpeedDatas);
     console.log('Vindhastighed og Vindretning', windData);
-    }
+}
     
-    function makeSunData(rawData) {
+    
+function makeSunData(rawData) {
     const sunRise = rawData.daily.sunrise;
     const sunSet = rawData.daily.sunset;
     
-    for (let i = 0; i < sunRise.length; i++) {
-        const sunrise = sunRise[i];
-        const sunset = sunSet[i];
+    const sunDatas = sunRise.map((sunRise, i) => ({
+        sunRise,
+        sunSet: sunSet[i],
+    }));
     
-        const dataPoint = {
-            sunRise: sunrise,
-            sunSet: sunset
-        };
-    
-        sunData.push(dataPoint);
-    }
+    sunData.push(sunDatas);
     console.log('Solopgang og Solnedgang', sunData);
-    }
+}
     
-    function makeDayData(rawData) {
+function makeDayData(rawData) {
     const temperature = rawData.hourly.temperature_2m;
     const weathercode = rawData.hourly.weathercode;
     const cloudcover = rawData.hourly.cloudcover;
     const visibility = rawData.hourly.visibility;
     const rain = rawData.hourly.rain;
     
-    for (let i = 0; i < temperature.length; i++) {
-        const temp = temperature[i];
-        const weather = weathercode[i];
-        const cloudcovers = cloudcover[i];
-        const visibilitys = visibility[i];
-        const rains = rain[i];
-    
-        const dataPoint = {
-            temperature: temp,
-            weathercode: weather,
-            cloudcover: cloudcovers,
-            visibility: visibilitys,
-            rain: rains
-        };
-    
-        dayData.push(dataPoint);
-    }
+    const dayDatas = temperature.map((temperature, i) => ({
+        temperature,
+        weathercode: weathercode[i],
+        cloudcover: cloudcover[i],
+        visibility: visibility[i],
+        rain: rain[i],
+    }));
+
+    dayData.push(dayDatas);
     console.log('Temperatur, Vejrtype, Cloudcover, Visibility og Regn', dayData);
-    }
+}
     
-    function makeWeekData(rawData) {
+function makeWeekData(rawData) {
     const temperatureMax = rawData.daily.temperature_2m_max;
     const temperatureMin = rawData.daily.temperature_2m_min;
     const weatherCode = rawData.daily.weathercode;
     
-    for (let i = 0; i < temperatureMax.length; i++) {
-        const tempMax = temperatureMax[i];
-        const tempMin = temperatureMin[i];
-        const weather = weatherCode[i];
-    
-        const dataPoint = {
-            temperature_max: tempMax,
-            temperature_min: tempMin,
-            weathercode: weather
-        };
-    
-        weekData.push(dataPoint);
-    }
+    const weekDatas = temperatureMax.map((temperature_max, i) => ({
+        temperature_max,
+        temperature_min: temperatureMin[i],
+        weathercode: weatherCode[i],
+    }));
+   
+    weekData.push(weekDatas);
     console.log('Temperatur_max, Temperatur_min og Vejrtype', weekData);
-    }
+}
