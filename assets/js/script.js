@@ -27,7 +27,7 @@ function getAddressByCity(myCity) {
         return response.json();
     })
     .then((data) => {
-        console.log(data);
+        // console.log(data);
 
         extractCoords(data);
     })
@@ -40,7 +40,7 @@ function getAddressByCity(myCity) {
 function extractCoords(data) {
     const lat = data[0].lat;
     const lon = data[0].lon;
-    console.log(lat, lon);
+    // console.log(lat, lon);
     getCurrentLocation(lat, lon);
 }
 
@@ -56,7 +56,7 @@ function getCurrentLocation(latitude, longitude) {
     })
     
     .then((data) => {
-    console.log(data);
+    console.log('Samlet vejrdata', data);
     const rawData = data; // smider al dataen ind i variablen rawData
     
     dataConversion(rawData); // kalder dataConversion med rawData
