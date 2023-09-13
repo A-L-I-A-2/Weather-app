@@ -1,0 +1,202 @@
+// Global variables
+tempData = [];
+weatherTypeData = [];
+windData = [];
+sunData = [];
+dayData = [];
+weekData = [];
+
+const myAddressInput = document.getElementById('addressInput');
+const myAddressSearchButton = document.getElementById('searchByAddress');
+
+myAddressSearchButton.addEventListener("click", () => {
+    // console.log(myAddressInput.value);
+    getAddressByCity(myAddressInput.value);
+})
+
+
+// fetch city
+function getAddressByCity(myCity) {
+
+    fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(myCity)}&format=json`)
+
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((data) => {
+        console.log(data);
+
+        extractCoords(data);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+}
+
+// convert city data to coordinates
+function extractCoords(data) {
+    const lat = data[0].lat;
+    const lon = data[0].lon;
+    console.log(lat, lon);
+    getCurrentLocation(lat, lon);
+}
+
+
+function getCurrentLocation(latitude, longitude) {
+
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,rain,showers,snowfall,snow_depth,weathercode,pressure_msl,surface_pressure,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high,visibility,evapotranspiration,et0_fao_evapotranspiration,vapor_pressure_deficit,windspeed_10m,winddirection_10m,windgusts_10m,soil_temperature_0cm,soil_moisture_0_1cm,uv_index,is_day,cape,freezinglevel_height&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,uv_index_max,precipitation_sum,rain_sum,showers_sum,snowfall_sum,precipitation_hours,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant,shortwave_radiation_sum,et0_fao_evapotranspiration&timezone=Europe%2FBerlin`;
+    
+    fetch(url)
+    
+    .then((response) => {
+        return response.json();
+    })
+    
+    .then((data) => {
+    console.log(data);
+    const rawData = data; // smider al dataen ind i variablen rawData
+    
+    dataConversion(rawData); // kalder dataConversion med rawData
+    })
+    
+    .catch((error) => {
+    console.error(error);
+    });
+    }
+    
+    // convert data to readable format
+    function dataConversion(data) { // indsat 'data' som parameter, så vi ved hvad der passeres videre til denne funktion
+    const rawData = data;
+    
+    // kalder funktioner til at håndtere data (udtrække fra api'en)
+    makeTempData(rawData);
+    makeWeatherTypeData(rawData);
+    makeWindSpeedData(rawData);
+    makeSunData(rawData);
+    makeDayData(rawData);
+    makeWeekData(rawData);
+    }
+    
+    // extract and sort info to array tempData
+    function makeTempData(rawData) {
+    const temp = rawData.hourly.temperature_2m;
+    const humidity = rawData.hourly.relativehumidity_2m;
+    
+    //loop through the temp and humidity arrays and push them into tempData
+    for (let i = 0; i < temp.length; i++) {
+        const temperature = temp[i];
+        const relativeHumidity = humidity[i];
+    
+        // Create an object to store temperature and humidity data
+        const dataPoint = {
+            temperature: temperature,
+            humidity: relativeHumidity
+        };
+    
+        // Push the dataPoint object into the tempData array
+        tempData.push(dataPoint);
+    }
+    console.log('Temperatur og Luftfugtighed', tempData);
+    }
+    
+    function makeWeatherTypeData(rawData) {
+    const weatherCode = rawData.hourly.weathercode;
+    
+    for (let i = 0; i < weatherCode.length; i++) {
+        const weatherType = weatherCode[i];
+    
+        const dataPoint = {
+            weatherType: weatherType
+        };
+    
+        weatherTypeData.push(dataPoint);
+    }
+    console.log('Vejrtype',weatherTypeData);
+    }
+    
+    function makeWindSpeedData(rawData) {
+    const windSpeed = rawData.hourly.windspeed_10m;
+    const windDirection = rawData.hourly.winddirection_10m;
+    
+    for (let i = 0; i < windSpeed.length; i++) {
+        const windSpeeds = windSpeed[i];
+        const windDirections = windDirection[i];
+    
+        const dataPoint = {
+            windSpeed: windSpeeds,
+            windDirection: windDirections
+        };
+    
+        windData.push(dataPoint);
+    }
+    console.log('Vindhastighed og Vindretning', windData);
+    }
+    
+    function makeSunData(rawData) {
+    const sunRise = rawData.daily.sunrise;
+    const sunSet = rawData.daily.sunset;
+    
+    for (let i = 0; i < sunRise.length; i++) {
+        const sunrise = sunRise[i];
+        const sunset = sunSet[i];
+    
+        const dataPoint = {
+            sunRise: sunrise,
+            sunSet: sunset
+        };
+    
+        sunData.push(dataPoint);
+    }
+    console.log('Solopgang og Solnedgang', sunData);
+    }
+    
+    function makeDayData(rawData) {
+    const temperature = rawData.hourly.temperature_2m;
+    const weathercode = rawData.hourly.weathercode;
+    const cloudcover = rawData.hourly.cloudcover;
+    const visibility = rawData.hourly.visibility;
+    const rain = rawData.hourly.rain;
+    
+    for (let i = 0; i < temperature.length; i++) {
+        const temp = temperature[i];
+        const weather = weathercode[i];
+        const cloudcovers = cloudcover[i];
+        const visibilitys = visibility[i];
+        const rains = rain[i];
+    
+        const dataPoint = {
+            temperature: temp,
+            weathercode: weather,
+            cloudcover: cloudcovers,
+            visibility: visibilitys,
+            rain: rains
+        };
+    
+        dayData.push(dataPoint);
+    }
+    console.log('Temperatur, Vejrtype, Cloudcover, Visibility og Regn', dayData);
+    }
+    
+    function makeWeekData(rawData) {
+    const temperatureMax = rawData.daily.temperature_2m_max;
+    const temperatureMin = rawData.daily.temperature_2m_min;
+    const weatherCode = rawData.daily.weathercode;
+    
+    for (let i = 0; i < temperatureMax.length; i++) {
+        const tempMax = temperatureMax[i];
+        const tempMin = temperatureMin[i];
+        const weather = weatherCode[i];
+    
+        const dataPoint = {
+            temperature_max: tempMax,
+            temperature_min: tempMin,
+            weathercode: weather
+        };
+    
+        weekData.push(dataPoint);
+    }
+    console.log('Temperatur_max, Temperatur_min og Vejrtype', weekData);
+    }
