@@ -6,16 +6,18 @@ sunData = [];
 dayData = [];
 weekData = [];
 
+// HTML elements
 const myAddressInput = document.getElementById('addressInput');
 const myAddressSearchButton = document.getElementById('searchByAddress');
 
+// event listeners
 myAddressSearchButton.addEventListener("click", () => {
     // console.log(myAddressInput.value);
     getAddressByCity(myAddressInput.value);
 })
 
 
-// fetch city
+// fetch closest answered city name from user input
 function getAddressByCity(myCity) {
 
     fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(myCity)}&format=json`)
@@ -41,10 +43,11 @@ function extractCoords(data) {
     const lat = data[0].lat;
     const lon = data[0].lon;
     // console.log(lat, lon);
+
     getCurrentLocation(lat, lon);
 }
 
-
+// fetch api data with coordinates
 function getCurrentLocation(latitude, longitude) {
 
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,rain,showers,snowfall,snow_depth,weathercode,pressure_msl,surface_pressure,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high,visibility,evapotranspiration,et0_fao_evapotranspiration,vapor_pressure_deficit,windspeed_10m,winddirection_10m,windgusts_10m,soil_temperature_0cm,soil_moisture_0_1cm,uv_index,is_day,cape,freezinglevel_height&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,uv_index_max,precipitation_sum,rain_sum,showers_sum,snowfall_sum,precipitation_hours,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant,shortwave_radiation_sum,et0_fao_evapotranspiration&timezone=Europe%2FBerlin`;
@@ -106,13 +109,9 @@ function makeWeatherTypeData(rawData) {
     console.log('Vejrtype', weatherTypeData);
 }
     
-    function makeWindSpeedData(rawData) {
+function makeWindSpeedData(rawData) {
     const windSpeed = rawData.hourly.windspeed_10m;
     const windDirection = rawData.hourly.winddirection_10m;
-    /* const tempDatas = temp.map((temperature, i) => ({
-        temperature,
-        humidity: humidity[i],
-    })); */
     const windSpeedDatas = windSpeed.map((windSpeed, i) => ({
         windSpeed,
         windDirection: windDirection[i],
