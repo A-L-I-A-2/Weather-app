@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>test</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/main.css" />
     <script src="/assets/js/script.js" defer></script>
-</head>
-<body>
-    
-<div class="container">
-    <input type="text" placeholder="address" id="addressInput"><br>
-    <button id="searchByAddress">Search</button>
+  </head>
+  <body>
+    <div class="container">
+      <input type="text" placeholder="address" id="addressInput" /><br />
+      <button id="searchByAddress">Search</button>
 
-    <div id="showResults"></div>
-</div>
+      <div id="showResults"></div>
+    </div>
 
-</body>
+    <div id="tempContainer"></div>
+    <div id="humidContainer"></div>
+    <div id="results"></div>
+    <div id="windSpeed"></div>
+    <div id="windDirection"></div>
+    <div id="sunRise"></div>
+    <div id="sunSet"></div>
+
+    <div id="dayForecast">
+      <ul>
+        <li id="tempForecast"></li>
+        <li id="weatherForecast"></li>
+        <li id="cloudcoverForecast"></li>
+        <li id="visibilityForecast"></li>
+        <li id="rainForecast"></li>
+      </ul>
+    </div>
+    <div id="weekForecast"></div>
+  </body>
 </html>
