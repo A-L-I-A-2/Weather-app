@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Toggle Switch</title>
+    <style>
+        /* Styles for the switch container */
+        .toggle-container {
+            display: inline-block;
+            position: relative;
+            width: 40px;
+            height: 80px;
+        }
+
+        /* Styles for the switch input */
+        .toggle-input {
+            display: none;
+        }
+
+        /* Styles for the switch label (slider) */
+        .toggle-label {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 50px;
+            transition: background-color 0.4s;
+        }
+
+        /* Styles for the switch label (slider) when it's active */
+        .toggle-label:before {
+            position: absolute;
+            content: "";
+            width: 36px;
+            height: 36px;
+            top: 4px;
+            left: 2px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.4s;
+        }
+
+        /* Style for the switch input when it's checked */
+        .toggle-input:checked + .toggle-label {
+            background-color: #ccc;
+        }
+
+        /* Style for the switch label (slider) when it's active */
+        .toggle-input:checked + .toggle-label:before {
+            transform: translateY(40px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Toggle switch container -->
+    <label class="toggle-container">
+        <!-- Input checkbox for the switch -->
+        <input type="checkbox" class="toggle-input" id="toggleSwitch">
+        <!-- The switch label (slider) -->
+        <span class="toggle-label"></span>
+    </label>
+
+    <script>
+        // JavaScript to handle the toggle functionality
+        const toggleSwitch = document.getElementById('toggleSwitch');
+
+        toggleSwitch.addEventListener('change', () => {
+            // Check the state of the toggle switch
+            if (toggleSwitch.checked) {
+                // Toggle is ON (Dark mode)
+
+                document.body.style.transition = 'background-color 1s, color 1s';
+
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'gray';
+
+                // You can also apply other changes for dark mode here.
+            } else {
+                // Toggle is OFF (Normal mode)
+
+                document.body.style.transition = 'background-color 2.5s, color 2.5s';
+
+                document.body.style.backgroundColor = 'white';
+                document.body.style.color = 'black';
+
+                // Restore default colors here.
+            }
+        });
+    </script>
+</body>
+</html>
