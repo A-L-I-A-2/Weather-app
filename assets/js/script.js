@@ -323,11 +323,19 @@ function displayWindSpeed(currentHour, windSpeed, windDirection) {
 function displaySunData(currentDay, sunRise, sunSet) {
   const sunRiseDisplay = document.getElementById("sunRise");
   const sunSetDisplay = document.getElementById("sunSet");
+
   if (sunRiseDisplay && sunSetDisplay) {
-    sunRiseDisplay.textContent = `Sunrise at ${sunRise}`;
-    sunSetDisplay.textContent = `Sunset at ${sunSet}`;
-    // console.log(`Sunrise at ${sunRise}`);
-    // console.log(`Sunset at ${sunSet}`);
+    const sunriseTime = new Date(sunRise);
+    const sunsetTime = new Date(sunSet);
+
+    const sunriseHour = sunriseTime.getHours();
+    const sunriseMinutes = sunriseTime.getMinutes();
+
+    const sunsetHour = sunsetTime.getHours();
+    const sunsetMinutes = sunsetTime.getMinutes();
+
+    sunRiseDisplay.textContent = `Sunrise: ${sunriseHour}:${sunriseMinutes}`;
+    sunSetDisplay.textContent = `Sunset: ${sunsetHour}:${sunsetMinutes}`;
   } else {
     console.error("No data available");
   }
