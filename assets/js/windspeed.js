@@ -37,6 +37,6 @@ function updateWindDirection(windDir) {
             direction = 'Default North';
             break;
     }
-
+    console.log('simulatedWindDirection:', windDir); //The value can change between 0 - 360, shows wind direktion
     console.log('Wind Direction:', direction);
 }
