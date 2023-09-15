@@ -196,13 +196,51 @@ function updateWindDirection(windDir) {
 function makeWindSpeedData(rawData) {
   const windSpeed = rawData.hourly.windspeed_10m;
   const windDirection = rawData.hourly.winddirection_10m;
+  //console.log(windSpeed);
+  console.log(windDirection);
 
   const currentHour = new Date().getHours();
 
+  const windDirectionArray = [];
+
+  for (const windDir of windDirection) {
+    switch (true) {
+      case windDir >= 355 && windDir <= 15:
+        windDirectionArray.push("North");
+        break;
+      case windDir >= 16 && windDir <= 80:
+        windDirectionArray.push("North-East");
+        break;
+      case windDir >= 81 && windDir <= 105:
+        windDirectionArray.push("East");
+        break;
+      case windDir >= 106 && windDir <= 175:
+        windDirectionArray.push("South-East");
+        break;
+      case windDir >= 176 && windDir <= 190:
+        windDirectionArray.push("South");
+        break;
+      case windDir >= 191 && windDir <= 240:
+        windDirectionArray.push("South-west");
+        break;
+      case windDir >= 241 && windDir <= 280:
+        windDirectionArray.push("West");
+        break;
+      case windDir >= 281 && windDir <= 354:
+        windDirectionArray.push("North-West");
+        break;
+      default:
+        windDirectionArray.push("Default North");
+        break;
+    }
+    //console.log('simulatedWindDirection:', windDir); //The value can change between 0 - 360, shows wind direktion
+  }
+
   const windSpeedDatas = windSpeed.map((windSpeed, i) => ({
     windSpeed,
-    windDirection: windDirection[i],
+    windDirection: windDirectionArray[i],
   }));
+  //console.log(windSpeedDatas);
 
   if (
     windSpeedDatas &&
