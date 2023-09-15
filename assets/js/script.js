@@ -222,17 +222,23 @@ function makeSunData(rawData) {
   const sunRise = rawData.daily.sunrise;
   const sunSet = rawData.daily.sunset;
 
-  const sunriseHour = sunriseTime.getHours();
-  const sunriseMinutes = sunriseTime.getMinutes();
+  const sunDatas = sunRise.map((sunRiseTime, i) => {
+    const sunriseTime = new Date(sunRiseTime);
+    const sunsetTime = new Date(sunSet[i]);
 
-  const sunsetHour = sunsetTime.getHours();
-  const sunsetMinutes = sunsetTime.getMinutes();
+    const sunriseHour = sunriseTime.getHours();
+    const sunriseMinutes = sunriseTime.getMinutes();
 
-  const sunDatas = sunRise.map((sunRise, i) => ({
-    sunRise,
-    sunSet: sunSet[i],
-  }));
-  //console.log(sunDatas);
+    const sunsetHour = sunsetTime.getHours();
+    const sunsetMinutes = sunsetTime.getMinutes();
+
+    return {
+      sunrise: `${sunriseHour}:${sunriseMinutes}`,
+      sunset: `${sunsetHour}:${sunsetMinutes}`,
+    };
+  });
+
+  console.log(sunDatas);
   sunData.push(sunDatas);
 }
 
