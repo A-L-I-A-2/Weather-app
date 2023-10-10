@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-
     <link rel="stylesheet" href="/assets/css/main.css">
-    <script src="/assets/js/script.js" defer></script>
+    <script type="module" src="/assets/js/script.js" defer></script>
 </head>
 <body>
     <section class="wrapper">
@@ -22,35 +21,6 @@
 
           <div class="draggable-element">Element 1</div>
        
-
-          <script>
-   const draggableElements = document.querySelectorAll('.draggable-element');
-  let isDragging = false;
-  let startX, currentX, translateX = 0;
-
-  draggableElements.forEach((element) => {
-    element.style.transform = `translateX(${translateX}px)`;
-
-    element.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        currentX = e.clientX;
-        const deltaX = currentX - startX;
-        translateX += deltaX;
-        element.style.transform = `translateX(${translateX}px)`;
-        startX = currentX;
-      }
-    });
-
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-  });
-          </script>
         </article>
 
       </section>
