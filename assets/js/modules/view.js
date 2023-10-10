@@ -34,4 +34,6 @@ export function DisplaySunset(currentSunset, displayElement) {
 
 export function DisplayWind(currentWindData, displayElement) {
     console.log(currentWindData.windData);
+
+    const myApp = document.getElementById(displayElement);
 }

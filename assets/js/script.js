@@ -2,7 +2,7 @@ import { makeWeekData, makeDayData, makeSunData, makeWindSpeedData, updateWindDi
 import { DisplayTemperature, DisplayWeatherType, DisplaySunset, DisplayWind } from "./modules/view.js";
 // import { tempData } from "./modules/controller.js";
 
-let displayElementId = 'myApp';
+// let displayElementId = '';
 let weatherData;
 initApp();
 
@@ -16,13 +16,15 @@ function initApp() {
       weatherData = data;
       const allData = dataConversion(weatherData);
 
-      DisplayTemperature(allData, displayElementId);
-      DisplayWeatherType(allData, displayElementId);
-      DisplaySunset(allData, displayElementId);
-      DisplayWind(allData, displayElementId);
-
+      DisplayTemperature(allData, 'myApp');
+      DisplayWind(allData, 'windSpeed');
+      DisplayWeatherType(allData, 'weatherType');
+      DisplaySunset(allData, 'sunSet');
     })
     .catch((error) => {
       console.error('Error getting location:', error);
     });
 }
+
+
+// CALLBACKS HER ("KLIKKERE")
