@@ -173,7 +173,11 @@ body {
   width: 300px;
   height: 80vh;
   background: rgb(167, 212, 255);
-  background: linear-gradient(0deg, rgba(19, 107, 255, 1) 125%);
+  background: linear-gradient(
+    0deg,
+    rgba(167, 212, 255, 1) 0%,
+    rgba(19, 107, 255, 1) 100%
+  );
   border-radius: 5px;
   cursor: pointer;
   z-index: 1;
