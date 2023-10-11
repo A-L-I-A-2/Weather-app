@@ -148,3 +148,36 @@ export function DisplayWeatherTypeOnly(weatherTypes, displayElement) {
 
   targetElement.innerHTML = `<div class="weatherExpand" onclick="window._viewCallbacks.returnClick('return')">${myWeatherTypeHtml}</div>`;
 }
+
+var draggableElement = document.getElementById("element1");
+var slideBar = document.getElementById("slideBar");
+
+var isDragging = false;
+var offset = { x: 0, y: 0 };
+
+// Beregn grænserne for træk inden for <article> container
+var maxX = slideBar.clientWidth - draggableElement.clientWidth;
+var maxY = slideBar.clientHeight - draggableElement.clientHeight;
+
+draggableElement.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  offset.x = e.clientX - draggableElement.getBoundingClientRect().left;
+  offset.y = e.clientY - draggableElement.getBoundingClientRect().top;
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    var newX = e.clientX - slideBar.getBoundingClientRect().left - offset.x;
+    var newY = e.clientY - slideBar.getBoundingClientRect().top - offset.y;
+
+    newX = Math.min(maxX, Math.max(0, newX));
+    newY = Math.min(maxY, Math.max(0, newY));
+
+    draggableElement.style.left = newX + "px";
+    draggableElement.style.top = newY + "px";
+  }
+});
