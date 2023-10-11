@@ -6,14 +6,19 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="/assets/css/main.css">
     <script type="module" src="/assets/js/script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <section class="wrapper">
       <section class="grid">
-        <article class="box" id="myApp"></article>
-        <article class="box" id="windSpeed"></article>
-        <article class="box" id="sunSet"></article>
-        <article class="box" id="weatherType"></article>
+        <article class="box" ><p id="myApp"></p></article>
+        <article class="box" ><p id="windSpeed"></p></article>
+        <article class="box1"><i class="fa-regular fa-sun"></i><i class="fa-solid fa-sun"></i></i>
+          <p id="sunSet" class="weather-text"></p>
+        </article>
+        <article class="box">
+          <p id="weatherType"></p>
+        </article>
       </section>
       <section class="button">
         <input id="seach"></input>
