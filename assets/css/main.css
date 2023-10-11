@@ -80,7 +80,14 @@ body {
   height: 50px;
   background-color: #ff0000; /* Rød baggrundsfarve som et eksempel */
   position: absolute;
-  cursor: grab;
+  cursor: pointer;
+}
+
+.centerElement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
 }
 
 .weather { 
@@ -128,13 +135,7 @@ body {
   color: white;
 }
 
-/* weather icon styling */
 .iconSize {
-  /* Define your styles here */
-  font-size: 100px; /* Adjust the font size as needed */
-  color: rgb(107, 107, 107)
-}
-
-.iconSizeClicked {
-  font-size: 50px;
+  font-size: 100px; /* changes icon size */
+  color: rgb(107, 107, 107);
 }

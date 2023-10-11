@@ -1,6 +1,6 @@
 export function DisplayTemperature(currentTempData, displayElement) {
 
-    console.log(currentTempData.tempData.temperature);
+    // console.log(currentTempData.tempData.temperature);
     
 
     // find dom elemenent
@@ -9,7 +9,7 @@ export function DisplayTemperature(currentTempData, displayElement) {
     myApp.innerHTML = "";
 
     let myTempHtml = "";
-    myTempHtml =`<h2>Temperature: ${currentTempData.tempData.temperature} °C</h2>`;
+    myTempHtml =`<h2 class="centerElement">${currentTempData.tempData.temperature}°C</h2>`;
 
     myApp.innerHTML = myTempHtml;
 } 
@@ -84,25 +84,21 @@ export function DisplayWeatherType(currentWeatherType, displayElement) {
     }
     
     targetElement.innerHTML = `<div class="weather" onclick="window._viewCallbacks.weatherClick('${currentWeatherType.weatherType}')">${myWeatherTypeHtml}</div>`;
-
-    /* targetElement.addEventListener('click', ( event ) => {
-        console.log(currentWeatherType.weatherType[0]);
-    }); */
 }
 
 export function DisplaySunset(currentSunset, displayElement) {
-    console.log(currentSunset.sunData[0]);
+    // console.log(currentSunset.sunData[0]);
     
 }
 
 export function DisplayWind(currentWindData, displayElement) {
-    console.log(currentWindData.windData);
+    // console.log(currentWindData.windData);
 
     const myApp = document.getElementById(displayElement);
 }
 
 export function DisplayWeatherTypeOnly(weatherTypes, displayElement) {
-    console.log(weatherTypes);
+    // console.log(weatherTypes);
 
     const targetElement = document.getElementById(displayElement);
 
@@ -131,7 +127,7 @@ export function DisplayWeatherTypeOnly(weatherTypes, displayElement) {
     let noDataText = `<p>Ingen data</p>`;
 
     myWeatherTypeHtml = `<div>${clear}${clearText}</div><div>${mainlyClear}${mainlyClearText}</div><div>${fog}${fogText}</div><div>${droplets}${dropletsText}</div><div>${rain}${rainText}</div><div>${snow}${snowText}</div><div>${rainShower}${rainShowerText}</div><div>${thunder}${thunderText}</div><div>${noData}${noDataText}</div>`;
-
+    
     targetElement.innerHTML = `<div class="weatherExpand" onclick="window._viewCallbacks.returnClick('return')">${myWeatherTypeHtml}</div>`;
 
 }

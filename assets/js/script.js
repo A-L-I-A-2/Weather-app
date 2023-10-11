@@ -38,3 +38,6 @@ function weatherClick(weatherTypeData) {
 function returnClick() {
   initApp();
 }
+
+
+
