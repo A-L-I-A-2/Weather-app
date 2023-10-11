@@ -1,5 +1,5 @@
 import { makeWeekData, makeDayData, makeSunData, makeWindSpeedData, updateWindDirection, makeWeatherTypeData, getCurrentLocation, getPosition, dataConversion, makeTempData } from "./modules/module.js";
-import { DisplayTemperature, DisplayWeatherType, DisplaySunset, DisplayWind } from "./modules/view.js";
+import { DisplayTemperature, DisplayWeatherType, DisplaySunset, DisplayWind, DisplayWeatherTypeOnly } from "./modules/view.js";
 // import { tempData } from "./modules/controller.js";
 
 // let displayElementId = '';
@@ -28,3 +28,16 @@ function initApp() {
 
 
 // CALLBACKS HER ("KLIKKERE")
+// hoisted functions
+window._viewCallbacks = { weatherClick, returnClick };
+
+function weatherClick(weatherTypeData) {
+  DisplayWeatherTypeOnly(weatherTypeData, 'weatherType');
+}
+
+function returnClick() {
+  initApp();
+}
+
+
+
