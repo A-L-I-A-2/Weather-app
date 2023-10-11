@@ -12,9 +12,9 @@ export function DisplayTemperature(currentTempData, displayElement) {
 export function DisplayWind(currentWindData, displayElement) {
   const Mywind = document.getElementById(displayElement);
 
-  let windSpeedHTML = `<h2>${currentWindData.windData.windSpeed}</h2>`;
-  let windDiretionHTML = `<h2>${currentWindData.windData.windDirection}</h2>`;
-  Mywind.innerHTML = windSpeedHTML + windDiretionHTML;
+  let windSpeedHTML = `${currentWindData.windData.windSpeed} km/t`;
+  let windDiretionHTML = `${currentWindData.windData.windDirection}`;
+  Mywind.innerHTML = `<h2>${windDiretionHTML}</h2><h2>${windSpeedHTML}</h2>`;
 }
 
 export function DisplaySunset(currentSunset, displayElement) {

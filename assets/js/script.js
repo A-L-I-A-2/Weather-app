@@ -1,9 +1,11 @@
-import { makeWeekData, makeDayData, makeSunData, makeWindSpeedData, updateWindDirection, makeWeatherTypeData, getCurrentLocation, getPosition, dataConversion, makeTempData } from "./modules/module.js";
+import { extractCoords, getAddressByCity, makeWeekData, makeDayData, makeSunData, makeWindSpeedData, updateWindDirection, makeWeatherTypeData, getCurrentLocation, getPosition, dataConversion, makeTempData } from "./modules/module.js";
 import { DisplayTemperature, DisplayWeatherType, DisplaySunset, DisplayWind, DisplayWeatherTypeOnly } from "./modules/view.js";
-// import { tempData } from "./modules/controller.js";
+
 
 // let displayElementId = '';
 let weatherData;
+let searchData;
+
 initApp();
 
 function initApp() {
@@ -39,5 +41,29 @@ function returnClick() {
   initApp();
 }
 
+const searchInput = document.getElementById('searchInput');
 
+searchInput.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter' || event.code === 13) {
+    getAddressByCity(searchInput.value)
+      .then((coordinates) => {
+        return extractCoords(coordinates);
+      })
+      .then(({ latitude, longitude}) => {
+        return getCurrentLocation(latitude, longitude);
+      })
+      .then((data) => {
+        searchData = data;
+        const allSearchedData = dataConversion(searchData);
+        
+        DisplayTemperature(allSearchedData, 'myApp');
+        DisplayWind(allSearchedData, 'windSpeed');
+        DisplayWeatherType(allSearchedData, 'weatherType');
+        DisplaySunset(allSearchedData, 'sunSet');
+      })
+      .catch((error) => {
+        console.error('Error getting location:', error);
+      })
+  }
+});
 
