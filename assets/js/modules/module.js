@@ -2,6 +2,35 @@
 
 let rawData;
 
+
+
+export function getAddressByCity(myCity) {
+  return fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(myCity)}&format=json`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // console.log(data);
+      return data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export function extractCoords(data) {
+  // console.log(data[0].lat, data[0].lon);
+  const convertedCoords = {
+    latitude: data[0].lat,
+    longitude: data[0].lon
+  }
+  return convertedCoords;
+}
+
+
 export function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
