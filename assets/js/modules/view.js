@@ -12,13 +12,65 @@ export function DisplayTemperature(currentTempData, displayElement) {
 export function DisplayWind(currentWindData, displayElement) {
   const Mywind = document.getElementById(displayElement);
 
-  let windSpeedHTML = `${currentWindData.windData.windSpeed} km/t`;
-  let windDiretionHTML = `${currentWindData.windData.windDirection}`;
-  Mywind.innerHTML = `<h2>${windDiretionHTML}</h2><h2>${windSpeedHTML}</h2>`;
+  Mywind.innerHTML = "";
+
+  let windSpeedHTML = "";
+  let windDiretionHTML = "";
+  let myWindDirectionReader = currentWindData.windData.windDirection;
+
+  switch (myWindDirectionReader) {
+    case 'North':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow North"></i>`;
+      break;
+    case 'North-East':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow NorthEast"></i>`;
+      break;
+    case 'East':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow East"></i>`;
+      break;
+    case 'South':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow South"></i>`;
+      break;
+    case 'South-west':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow SouthWest"></i>`;
+      break;
+    case 'West':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow West"></i>`;
+      break;
+    case 'North-West':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow NorthWest"></i>`;
+      break;
+    default:
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow arrowSpin"></i>`;
+      break;
+  }
+
+  windDiretionHTML = `${myWindDirectionReader}`;
+  windSpeedHTML = `${currentWindData.windData.windSpeed} m/s`;
+  Mywind.innerHTML = `<div>${windDiretionHTML}</div><h2>${windSpeedHTML}</h2>`;
 }
 
 export function DisplaySunset(currentSunset, displayElement) {
   const MYSunSet = document.getElementById(displayElement);
+
+  const yeet = document.querySelectorAll(".box1");
+
+  yeet.forEach((element) => {
+    const weatherText = element.querySelector(".weather-text");
+
+  // Hide the text when the page loads
+  weatherText.style.display = "none"; // Hide the text
+
+  element.addEventListener("mousedown", () => {
+    // Toggle the "origin" class on click
+    element.classList.toggle("origin");
+      if (element.classList.contains("origin")) {
+        weatherText.style.display = "block"; // Show the text
+      } else {
+        weatherText.style.display = "none"; // Hide the text
+      }
+    });
+  });
 
   let sunRiseHTML = `<h2>${currentSunset.sunData[0].sunrise}</h2>`;
   let sunSetHTML = `<h3>${currentSunset.sunData[0].sunset}</h3>`;
@@ -94,26 +146,6 @@ export function DisplayWeatherType(currentWeatherType, displayElement) {
 
   targetElement.innerHTML = `<div class="weather" onclick="window._viewCallbacks.weatherClick('${currentWeatherType.weatherType}')">${myWeatherTypeHtml}</div>`;
 }
-
-const yeet = document.querySelectorAll(".box1");
-
-yeet.forEach((element) => {
-  const weatherText = element.querySelector(".weather-text");
-
-  // Hide the text when the page loads
-  weatherText.style.display = "none"; // Hide the text
-
-  element.addEventListener("mousedown", () => {
-    // Toggle the "origin" class on click
-    element.classList.toggle("origin");
-
-    if (element.classList.contains("origin")) {
-      weatherText.style.display = "block"; // Show the text
-    } else {
-      weatherText.style.display = "none"; // Hide the text
-    }
-  });
-});
 
 export function DisplayWeatherTypeOnly(weatherTypes, displayElement) {
   // console.log(weatherTypes);

@@ -13,7 +13,7 @@
   <section class="wrapper">
     <section class="grid">
       <article class="box" id="myApp"></article>
-      <article class="box" id="windSpeed"></article>
+      <article class="box2" id="windSpeed"></article>
       <article class="box1"><i class="fa-regular fa-sun"></i><i class="fa-solid fa-sun"></i></i>
         <p id="sunSet" class="weather-text"></p>
       </article>
@@ -24,6 +24,12 @@
     <section class="button">
       <div id="searchBox">
         <input id="searchInput" placeholder="Search City Name"></input>
+        <label class="toggle-container">
+          <!-- Input checkbox for the switch -->
+          <input type="checkbox" class="toggle-input" id="toggleSwitch">
+          <!-- The switch label (slider) -->
+          <span class="toggle-label"></span>
+      </label>
       </div>
       
       <article id="slideBar">

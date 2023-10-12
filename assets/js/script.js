@@ -59,6 +59,7 @@ function returnClick() {
   initApp();
 }
 
+/* SØGEFELT */
 const searchInput = document.getElementById("searchInput");
 
 searchInput.addEventListener("keypress", (event) => {
@@ -78,6 +79,7 @@ searchInput.addEventListener("keypress", (event) => {
         DisplayWind(allSearchedData, "windSpeed");
         DisplayWeatherType(allSearchedData, "weatherType");
         DisplaySunset(allSearchedData, "sunSet");
+        DisplayForecastDaily(allSearchedData, "forecast");
       })
       .catch((error) => {
         console.error("Error getting location:", error);
@@ -86,28 +88,36 @@ searchInput.addEventListener("keypress", (event) => {
 });
 
 
-/* function enableDragAndDrop() {
-  var draggableElement = document.getElementById("element1");
-  var isDragging = false;
-  var offsetX = 0;
+/* DARKMODE: */
 
-  draggableElement.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    offsetX = e.clientX - draggableElement.getBoundingClientRect().left;
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", function() {
+  const toggleSwitch = document.getElementById('toggleSwitch');
+  const body = document.body;
+
+  // Check the user's preference from previous visits, if available
+  const darkMode = localStorage.getItem('darkMode');
+  if (darkMode === 'enabled') {
+      enableDarkMode();
+      toggleSwitch.checked = true;
+  }
+
+  toggleSwitch.addEventListener('change', () => {
+      if (toggleSwitch.checked) {
+          // Toggle is ON (Dark mode)
+          enableDarkMode();
+      } else {
+          // Toggle is OFF (Normal mode)
+          disableDarkMode();
+      }
   });
 
-  document.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+  function enableDarkMode() {
+      body.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'enabled');
+  }
 
-  document.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      var left = e.clientX - offsetX;
-      draggableElement.style.left = left + "px";
-    }
-  });
-}
-
-// Kald funktionen for at aktivere træk-og-slip-funktionaliteten
-enableDragAndDrop(); */
+  function disableDarkMode() {
+      body.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', null);
+  }
+});
