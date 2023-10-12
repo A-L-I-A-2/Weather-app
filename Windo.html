@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind Direction 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous">
+
+    <style>
+.wind-direction {
+    position: relative;
+    width: 200px; /* Set the initial width of the container */
+    height: 200px; /* Set the initial height of the container */
+}
+
+
+.arrow {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform-origin: bottom;
+    transition: transform 0.5s ease;
+}
+
+.arrow i {
+    font-size: 3em;
+}
+    </style>
+</head>
+
+<body>
+    <div class="wind-direction">
+        <div class="arrow">
+            <i class="fas fa-arrow-up"></i>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <label for="manualDirection">Set Wind Direction (in degrees):</label>
+        <input type="number" id="manualDirection" min="0" max="360">
+        <button id="updateDirection">Update Direction</button>
+        <div id="directionOutput"></div>
+    </div>
+
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', function (event) {
+            const arrow = document.querySelector('.arrow');
+            const manualDirInput = document.getElementById('manualDirection');
+            const directionOutput = document.getElementById('directionOutput');
+
+            document.getElementById('updateDirection').addEventListener('click', function () {
+                const manualDirValue = parseFloat(manualDirInput.value);
+                if (!isNaN(manualDirValue) && manualDirValue >= 0 && manualDirValue <= 360) {
+                    updateWindDirection(manualDirValue);
+                } else {
+                    alert('Please enter a valid wind direction between 0 and 360 degrees.');
+                }
+            });
+
+            function updateWindDirection(windDir) {
+                arrow.style.transform = `rotate(${windDir}deg)`;
+
+                let direction;
+
+
+                switch (true) {
+                    case windDir >= 355 || windDir <= 15:
+                        direction = 'North';
+                        break;
+                    case windDir > 15 && windDir <= 80:
+                        direction = 'North-East';
+                        break;
+                    case windDir > 80 && windDir <= 105:
+                        direction = 'East';
+                        break;
+                    case windDir > 105 && windDir <= 175:
+                        direction = 'South-East';
+                        break;
+                    case windDir > 175 && windDir <= 190:
+                        direction = 'South';
+                        break;
+                    case windDir > 190 && windDir <= 240:
+                        direction = 'South-west';
+                        break;
+                    case windDir > 240 && windDir <= 280:
+                        direction = 'West';
+                        break;
+                    case windDir > 280 && windDir <= 355:
+                        direction = 'North-West';
+                        break;
+                    default:
+                        direction = 'North';
+                        break;
+                }
+
+                directionOutput.textContent = `Wind Direction: ${direction}`;
+            }
+        });
+    </script>
+</body>
+
+</html>
