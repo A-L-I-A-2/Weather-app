@@ -148,36 +148,33 @@ export function DisplayWeatherTypeOnly(weatherTypes, displayElement) {
 
   targetElement.innerHTML = `<div class="weatherExpand" onclick="window._viewCallbacks.returnClick('return')">${myWeatherTypeHtml}</div>`;
 }
+function enableDragAndDrop() {
+  var draggableElement = document.getElementById("element1");
+  var isDragging = false;
+  var offsetX = 0;
 
-var draggableElement = document.getElementById("element1");
-var slideBar = document.getElementById("slideBar");
+  draggableElement.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - draggableElement.getBoundingClientRect().left;
+    e.preventDefault();
+  });
 
-var isDragging = false;
-var offset = { x: 0, y: 0 };
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
 
-// Beregn grænserne for træk inden for <article> container
-var maxX = slideBar.clientWidth - draggableElement.clientWidth;
-var maxY = slideBar.clientHeight - draggableElement.clientHeight;
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      var left = e.clientX - offsetX;
+      draggableElement.style.left = left + "px";
+    }
+  });
+}
 
-draggableElement.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  offset.x = e.clientX - draggableElement.getBoundingClientRect().left;
-  offset.y = e.clientY - draggableElement.getBoundingClientRect().top;
-});
+// Kald funktionen for at aktivere træk-og-slip-funktionaliteten
+enableDragAndDrop();
 
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-});
+/* <i id="myIcon"></i>;
 
-document.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    var newX = e.clientX - slideBar.getBoundingClientRect().left - offset.x;
-    var newY = e.clientY - slideBar.getBoundingClientRect().top - offset.y;
-
-    newX = Math.min(maxX, Math.max(0, newX));
-    newY = Math.min(maxY, Math.max(0, newY));
-
-    draggableElement.style.left = newX + "px";
-    draggableElement.style.top = newY + "px";
-  }
-});
+let myIcon = document.getElementById("myIcon");
+myIcon.classList.add("fas", "fa-arrow-down"); */
