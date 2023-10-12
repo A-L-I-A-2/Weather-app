@@ -155,3 +155,85 @@ export function DisplayWeatherTypeOnly(weatherTypes, displayElement) {
 
 let myIcon = document.getElementById("myIcon");
 myIcon.classList.add("fas", "fa-arrow-down"); */
+
+export function DisplayForecastDaily(myWeatherData, displayElement) {
+  // console.log(myWeatherData.dayData);
+  const targetElement = document.getElementById(displayElement);
+
+  const dailyForecast = myWeatherData.weekData;
+  // console.log(dailyForecast);
+  // console.log(dailyForecast[0].dayOfWeek);
+
+  targetElement.innerHTML = "";
+
+  
+
+  dailyForecast.forEach((object) => {
+    // console.log(object);
+    let clear = `<i class="fa-regular fa-sun iconSize iconScale"></i>`;
+    let mainlyClear = `<i class="fa-solid fa-cloud-sun iconSize iconScale"></i>`;
+    let fog = `<i class="fa-solid fa-smog iconSize iconScale"></i>`;
+    let droplets = `<i class="fa-solid fa-droplet iconSize iconScale"></i>`;
+    let rain = `<i class="fa-solid fa-cloud-rain iconSize iconScale"></i>`;
+    let snow = `<i class="fa-regular fa-snowflake iconSize iconScale"></i>`;
+    let rainShower = `<i class="fa-solid fa-cloud-showers-heavy iconSize iconScale"></i>`;
+    let thunder = `<i class="fa-solid fa-bolt-lightning iconSize iconScale"></i>`;
+    let noData = `<i class="fa-solid fa-circle-xmark iconSize iconScale"></i>`;
+    let weatherString = object.weatherCode;
+    // console.log(weatherString);
+
+    let myForecastHtml = "";
+    let myForecastIcon = "";
+
+    switch (weatherString) {
+      case "Clear sky":
+        myForecastIcon = `${clear}`;
+        break;
+      case "Mainly clear, partly cloudy, and overcast":
+        myForecastIcon = `${mainlyClear}`;
+        break;
+      case "Fog and depositing rime fog":
+        myForecastIcon = `${fog}`;
+        break;
+      case "Drizzle: Light, moderate, and dense intensity":
+        myForecastIcon = `${droplets}`;
+        break;
+      case "Freezing Drizzle: Light and dense intensity":
+        myForecastIcon = `${droplets}`;
+        break;
+      case "Rain: Slight, moderate and heavy intensity":
+        myForecastIcon = `${rain}`;
+        break;
+      case "Freezing Rain: Light and heavy intensity":
+        myForecastIcon = `${rain}`;
+        break;
+      case "Snow fall: Slight, moderate, and heavy intensity":
+        myForecastIcon = `${snow}`;
+        break;
+      case "Snow grains":
+        myForecastIcon = `${snow}`;
+        break;
+      case "Rain showers: Slight, moderate, and violent":
+        myForecastIcon = `${rainShower}`;
+        break;
+      case "Snow showers slight and heavy":
+        myForecastIcon = `${snow}`;
+        break;
+      case "Thunderstorm: Slight or moderate":
+        myForecastIcon = `${thunder}`;
+        break;
+      case "Thunderstorm with slight and heavy hail":
+        myForecastIcon = `${thunder}`;
+        break;
+      default:
+        myForecastIcon = `${noData}`;
+        break;
+    }
+
+    myForecastHtml = `<div>${object.dayOfWeek}</div><div>${myForecastIcon}</div><div class="tempWeekly">${object.averageTemperature} °C</div>`;
+
+    targetElement.innerHTML += `<div>${myForecastHtml}</div>`;
+  })
+
+
+}

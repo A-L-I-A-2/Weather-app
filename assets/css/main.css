@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: auto;
+}
 
 body {
   background: rgb(189, 189, 189);
@@ -213,22 +216,49 @@ body {
     rgba(167, 212, 255, 1) 0%,
     rgba(19, 107, 255, 1) 100%
   );
-  position: relative;
+  /* position: relative; */
 }
 
 .draggable-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
+  /* width: 100%; */
+  /* height: 100%; */
+  /* udkommenter for at se al data vist */
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
-.draggable-element {
-  width: 250px;
-  height: 240px;
-  background-color: #ff0000;
-  position: absolute;
-  cursor: pointer;
-  white-space: nowrap;
-  top: 30px;
+#forecast {
+  display: flex;
+  height: 100%;
+  /* justify-content: space-between; */
+  
+}
+
+#forecast div {
+  margin: 0.66em; 
+  background-color: rgb(167, 212, 255);
+  border-radius: 12px;
+}
+
+#forecast div div {
+  margin-bottom: 5em;
+  text-align: center;
+  color: white;
+}
+
+.iconScale {
+  font-size: 50px;
+}
+
+.tempWeekly {
+  font-size: 1em;
+}
+
+@media (max-width: 768px) {
+  #forecast {
+    white-space: normal;
+  }
+  #forecast div {
+    width: auto;
+  }
 }

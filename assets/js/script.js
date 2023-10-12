@@ -18,6 +18,7 @@ import {
   DisplaySunset,
   DisplayWind,
   DisplayWeatherTypeOnly,
+  DisplayForecastDaily,
 } from "./modules/view.js";
 
 // let displayElementId = '';
@@ -39,6 +40,7 @@ function initApp() {
       DisplayWind(allData, "windSpeed");
       DisplayWeatherType(allData, "weatherType");
       DisplaySunset(allData, "sunSet");
+      DisplayForecastDaily(allData, "forecast");
     })
     .catch((error) => {
       console.error("Error getting location:", error);
@@ -83,7 +85,7 @@ searchInput.addEventListener("keypress", (event) => {
   }
 });
 
-___________________________________;
+
 /* function enableDragAndDrop() {
   var draggableElement = document.getElementById("element1");
   var isDragging = false;
