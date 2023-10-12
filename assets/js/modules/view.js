@@ -148,31 +148,8 @@ export function DisplayWeatherTypeOnly(weatherTypes, displayElement) {
 
   targetElement.innerHTML = `<div class="weatherExpand" onclick="window._viewCallbacks.returnClick('return')">${myWeatherTypeHtml}</div>`;
 }
-function enableDragAndDrop() {
-  var draggableElement = document.getElementById("element1");
-  var isDragging = false;
-  var offsetX = 0;
-
-  draggableElement.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    offsetX = e.clientX - draggableElement.getBoundingClientRect().left;
-    e.preventDefault();
-  });
-
-  document.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
-
-  document.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      var left = e.clientX - offsetX;
-      draggableElement.style.left = left + "px";
-    }
-  });
-}
 
 // Kald funktionen for at aktivere træk-og-slip-funktionaliteten
-enableDragAndDrop();
 
 /* <i id="myIcon"></i>;
 
