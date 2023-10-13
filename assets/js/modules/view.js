@@ -10,6 +10,7 @@ export function DisplayTemperature(currentTempData, displayElement) {
   myApp.innerHTML = myTempHtml;
 }
 export function DisplayWind(currentWindData, displayElement) {
+  console.log(currentWindData.windData.windDirection);
   const Mywind = document.getElementById(displayElement);
 
   Mywind.innerHTML = "";
@@ -27,6 +28,9 @@ export function DisplayWind(currentWindData, displayElement) {
       break;
     case 'East':
       myWindDirectionReader = `<i class="fa-solid fa-location-arrow East"></i>`;
+      break;
+    case 'South-East':
+      myWindDirectionReader = `<i class="fa-solid fa-location-arrow SouthEast"></i>`;
       break;
     case 'South':
       myWindDirectionReader = `<i class="fa-solid fa-location-arrow South"></i>`;
